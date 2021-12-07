@@ -1,0 +1,4 @@
+
+
+class InputFileError(Exception):
+    pass
