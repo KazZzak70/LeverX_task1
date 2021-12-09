@@ -15,7 +15,8 @@ class JSONExporter(Exporter):
             type_name = any_obj.__class__.__name__
             raise TypeError(f"Object of type '{type_name}' is not JSON serializable")
 
-    def export_json(self, data: list[dict]):
+    @staticmethod
+    def export_file(data: list):
         output_file_path = pathlib.Path(pathlib.Path.cwd(), "output.json")
         with open(output_file_path, "w") as file:
-            json.dump(data, file, default=self.encode, indent="\t")
+            json.dump(data, file, default=JSONExporter.encode, indent="\t")
