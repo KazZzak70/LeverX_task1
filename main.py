@@ -1,3 +1,4 @@
+from args import configure_parser
 from exceptions import InputFileError
 from source_files_func import get_data, rooms_dict_to_list
 from json_export import JSONExporter
@@ -10,11 +11,10 @@ from room import Room
 
 
 def main():
-    students_file_path = "/home/maksim/PycharmProjects/LeverX_task1/students.json"
-    rooms_file_path = "/home/maksim/PycharmProjects/LeverX_task1/rooms.json"
+    args = configure_parser().parse_args()
 
-    students_source_data = get_data(file_path=students_file_path)
-    rooms_source_data = get_data(file_path=rooms_file_path)
+    students_source_data = get_data(file_path=args.students_file_path)
+    rooms_source_data = get_data(file_path=args.rooms_file_path)
 
     students_list = []
     rooms_dict = dict()
@@ -36,12 +36,11 @@ def main():
     else:
         raise InputFileError("Expected data in source JSON file")
 
-    json_exporter = JSONExporter()
-    json_exporter.export_json(data=rooms_dict_to_list(rooms_dict))
-    xml_exporter = XMLExporter()
-    xml_exporter.export_xml(data=rooms_dict_to_list(rooms_dict))
+    if args.to_xml:
+        XMLExporter.export_file(data=rooms_dict_to_list(rooms_dict))
+    if args.to_json:
+        JSONExporter.export_file(data=rooms_dict_to_list(rooms_dict))
 
 
 if __name__ == '__main__':
     main()
-

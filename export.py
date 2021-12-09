@@ -1,10 +1,9 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 
 class Exporter(ABC):
 
-    def export_json(self, data: list[dict]):
-        pass
-
-    def export_xml(self, data: list):
+    @staticmethod
+    @abstractmethod
+    def export_file(data: list):
         pass

@@ -20,4 +20,3 @@ def get_data(file_path: str):
 def rooms_dict_to_list(source_dict: dict) -> list:
     rooms_list = [item[1] for item in source_dict.items()]
     return rooms_list
-
