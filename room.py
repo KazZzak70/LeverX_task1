@@ -1,12 +1,8 @@
-from conversion import Conversion
-from exceptions import InputFileError
+class Room:
 
-
-class Room(Conversion):
-
-    def __init__(self):
-        self.id = None
-        self.name = None
+    def __init__(self, id: int, name: str, *args, **kwargs):
+        self.id = id
+        self.name = name
         self.students = []
 
     def __str__(self):
@@ -14,10 +10,3 @@ class Room(Conversion):
 
     def to_dict(self):
         return {"id": self.id, "name": self.name, "students": self.students}
-
-    def initialize_from_dict(self, source_dict: dict):
-        try:
-            self.id = source_dict.get("id")
-            self.name = source_dict.get("name")
-        except KeyError:
-            raise InputFileError("Expected existence of fields: \"id\", \"name\" in rooms source file")
